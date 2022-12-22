@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AutoFixture;
+using FluentAssertions;
 using Imagination.Controllers;
 using Imagination.Server.App.Services.Interfaces;
 using Imagination.Server.App.Types;
@@ -10,6 +11,8 @@ namespace Imagination.Server.Test.Controllers
 {
     public class HomeControllerTests
     {
+        private Fixture _fixture { get { return new Fixture(); } }
+
         [Theory]
         [InlineData(ServiceErrorType.EmptyOrNullStream)]
         [InlineData(ServiceErrorType.EmptyImageOrUnknownFormat)]
@@ -23,7 +26,7 @@ namespace Imagination.Server.Test.Controllers
 
             var homeController = CreateHomeControllerWithHttpContext(new MemoryStream(), imaginationServiceMock);
 
-            var result = await homeController.Convert();
+            var result = await homeController.Convert(_fixture.Create<CancellationToken>());
 
             result.Should().NotBeNull();
             result.Should().BeOfType<UnprocessableEntityObjectResult>();
@@ -40,7 +43,7 @@ namespace Imagination.Server.Test.Controllers
 
             var homeController = CreateHomeControllerWithHttpContext(new MemoryStream(), imaginationServiceMock);
 
-            var result = await homeController.Convert();
+            var result = await homeController.Convert(_fixture.Create<CancellationToken>());
 
             result.Should().NotBeNull();
             result.Should().BeOfType<FileContentResult>();

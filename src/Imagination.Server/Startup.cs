@@ -1,3 +1,6 @@
+using Imagination.Server.App.Options;
+using Imagination.Server.App.Services.Implements;
+using Imagination.Server.App.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +32,10 @@ namespace Imagination
                 .AddHttpClientInstrumentation()
                 .AddJaegerExporter()
                 .AddSource(Program.Telemetry.Name));
+
+            services.AddTransient<IImageConvertorService, ImageConvertorService>();
+            services.Configure<ApplicationOptions>(Configuration.GetSection(nameof(ApplicationOptions)));
+
 
             services.AddControllers();
         }

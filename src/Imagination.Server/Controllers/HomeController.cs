@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Imagination.Controllers
@@ -21,12 +22,11 @@ namespace Imagination.Controllers
         [ProducesResponseType(StatusCodes.Status415UnsupportedMediaType)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<IActionResult> Convert()
+        public async Task<IActionResult> Convert(CancellationToken cancelationToken)
         {
-            var imageStream = new MemoryStream();
-            await Request.Body.CopyToAsync(imageStream);
+            using var imageStream = new MemoryStream();
+            await Request.Body.CopyToAsync(imageStream, cancelationToken);
             var result = _imageConvertorService.ConvertToJpeg(imageStream);
-
 
             if (result.WasSuccessful)
             {
