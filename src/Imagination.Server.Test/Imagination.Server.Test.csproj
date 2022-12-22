@@ -46,6 +46,12 @@
     <None Update="Resources\jfif.jfif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\jpeg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\png.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\small.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

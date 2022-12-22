@@ -24,6 +24,7 @@ public class ImageConvertorService : IImageConvertorService
 
         var codec = SKCodec.Create(imageStream);
 
+
         if (codec is null)
         {
             return new ServiceResult(ServiceErrorType.EmptyImageOrUnknownFormat);
@@ -38,8 +39,7 @@ public class ImageConvertorService : IImageConvertorService
         }
 
         var jpegStream = new MemoryStream();
-
-        SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, _applicationOptions.JpegQuality).SaveTo(jpegStream);
+        SKImage.FromBitmap(bitmap).Encode(SKEncodedImageFormat.Jpeg, _applicationOptions.JpegQuality).AsStream(false).CopyTo(jpegStream);
         return new ServiceResult(jpegStream);
     }
 }

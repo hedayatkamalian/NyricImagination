@@ -92,6 +92,24 @@ public class ImageConvertorServiceTest
         result.WasSuccessful.Should().BeTrue();
     }
 
+    [Theory]
+    [InlineData("resources/small.png")]
+    [InlineData("resources/png.png")]
+    [InlineData("resources/jpeg.jpg")]
+    public void ConvertToJpeg_Should_Convert_To_JPEG(string fileAddress)
+    {
+        var applicationOptions = GetMockOptions();
+        var imageConvertorService = new ImageConvertorService(applicationOptions.Object);
+        var result = imageConvertorService.ConvertToJpeg(ReadFileAsStream(fileAddress));
+
+        result.Should().NotBeNull();
+        result.WasSuccessful.Should().BeTrue();
+
+        var codec = SKCodec.Create(new MemoryStream(result.Result.ToArray()));
+
+        codec.EncodedFormat.Should().Be(SKEncodedImageFormat.Jpeg);
+    }
+
 
     private Mock<IOptions<ApplicationOptions>> GetMockOptions(int maxDimention = 1024)
     {
