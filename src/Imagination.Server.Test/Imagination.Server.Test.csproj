@@ -40,6 +40,9 @@
     <None Update="Resources\big.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\invalid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\small.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

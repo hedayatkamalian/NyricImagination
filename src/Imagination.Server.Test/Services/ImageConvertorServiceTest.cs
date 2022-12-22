@@ -56,8 +56,17 @@ public class ImageConvertorServiceTest
 
     }
 
+    [Theory]
+    [InlineData("resources/invalid.png")]
+    public void ConvertToJpeg_Should_Convert_Images_With_Unexpected_End_Of_File(string fileAddress)
+    {
+        var applicationOptions = GetMockOptions();
+        var imageConvertorService = new ImageConvertorService(applicationOptions.Object);
+        var result = imageConvertorService.ConvertToJpeg(ReadFileAsStream(fileAddress));
 
-
+        result.Should().NotBeNull();
+        result.WasSuccessful.Should().BeTrue();
+    }
 
 
     private Mock<IOptions<ApplicationOptions>> GetMockOptions(int maxDimention = 1024)
