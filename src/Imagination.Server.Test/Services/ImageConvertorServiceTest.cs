@@ -68,6 +68,18 @@ public class ImageConvertorServiceTest
         result.WasSuccessful.Should().BeTrue();
     }
 
+    [Theory]
+    [InlineData("resources/jfif.jfif")]
+    public void ConvertToJpeg_Should_Convert_Images_With_Invalid_Extentions(string fileAddress)
+    {
+        var applicationOptions = GetMockOptions();
+        var imageConvertorService = new ImageConvertorService(applicationOptions.Object);
+        var result = imageConvertorService.ConvertToJpeg(ReadFileAsStream(fileAddress));
+
+        result.Should().NotBeNull();
+        result.WasSuccessful.Should().BeTrue();
+    }
+
 
     private Mock<IOptions<ApplicationOptions>> GetMockOptions(int maxDimention = 1024)
     {
