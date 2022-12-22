@@ -3,6 +3,6 @@
 public enum ServiceErrorType
 {
     EmptyOrNullStream = 1,
-    InvalidOrUnknownFormat,
+    EmptyImageOrUnknownFormat,
     Unknown
 }
