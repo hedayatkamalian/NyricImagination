@@ -7,6 +7,12 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    environment:
+      - ASPNETCORE_HTTP_PORT=https://+:5001
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+     - "5000:5000/tcp"
+     - "5001:5001/tcp"
     mem_limit: 512m
     mem_reservation: 512m
     depends_on:
