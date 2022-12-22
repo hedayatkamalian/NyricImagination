@@ -22,8 +22,14 @@ public class ImageConvertorService : IImageConvertorService
             return new ServiceResult(ServiceErrorType.EmptyOrNullStream);
         }
 
-        var bitmap = SKBitmap.Decode(imageStream.ToArray());
+        var codec = SKCodec.Create(imageStream);
 
+        if (codec is null)
+        {
+            return new ServiceResult(ServiceErrorType.EmptyImageOrUnknownFormat);
+        }
+
+        var bitmap = new SKBitmap(codec.Info);
 
         if (bitmap.Width > _applicationOptions.MaxDimensionSize || bitmap.Height > _applicationOptions.MaxDimensionSize)
         {

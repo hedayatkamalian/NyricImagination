@@ -41,7 +41,7 @@ public class ImageConvertorServiceTest
     [InlineData("resources/big.jpg")]
     [InlineData("resources/small.png")]
     [InlineData("resources/tall.jpg")]
-    public void ConvertToJpeg_Should_Produce_Image_Which_Fit_In_Square_With_MaxDimentionSize(string fileAddress)
+    public void ConvertToJpeg_Should_Produce_Images_Which_Fit_In_Square_With_MaxDimentionSize(string fileAddress)
     {
         var applicationOptions = GetMockOptions();
         var imageConvertorService = new ImageConvertorService(applicationOptions.Object);
@@ -55,6 +55,9 @@ public class ImageConvertorServiceTest
         bitamp.Height.Should().BeLessThanOrEqualTo(applicationOptions.Object.Value.MaxDimensionSize);
 
     }
+
+
+
 
 
     private Mock<IOptions<ApplicationOptions>> GetMockOptions(int maxDimention = 1024)
